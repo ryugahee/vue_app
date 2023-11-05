@@ -1,19 +1,17 @@
 package com.example.backend.entity;
 
-import com.example.backend.constant.Role;
-import com.example.backend.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Setter
 @Entity
 @ToString
 @Table(name="member")
-public class Member extends BaseEntity{
+public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "member_id")
@@ -26,23 +24,10 @@ public class Member extends BaseEntity{
 
     private String password;
 
-    private String address;
+    private String zipcode;
 
-    @Enumerated(EnumType.STRING)   //enum으 기본적으로 순서가 저장되나 바뀔 수 있으므로 string 권장
-    private Role role;
+    private String streetadr;
 
-    //Member 엔티티 생성
-    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
-        Member member = new Member();
-        member.setName(memberFormDto.getName());
-        member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
+    private String detailadr;
 
-        // Bean을 파라미터로 넘겨 비밀번호를 암호화
-        String password = passwordEncoder.encode(memberFormDto.getPassword());
-        member.setPassword(password);
-        member.setRole(Role.ADMIN);
-
-        return member;
-    }
 }

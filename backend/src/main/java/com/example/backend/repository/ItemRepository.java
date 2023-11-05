@@ -21,14 +21,5 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
 
     List<Item> findByPriceLessThanOrderByPriceDesc(Integer price);  //가격 내림차순으로 조회
 
-    /*
-     * @Query 어노테이션
-     * */
-    @Query("select i from Item i where i.itemDetail like %:itemDetail% order by i.price desc")
-    List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
-
-    // 기존 DB에서 사용하던 쿼리를 그대로 사용해야 하는 경우 nativeQuery 속성 사용
-    @Query(value = "select * from Item i where i.item_detail like %:itemDetail% order by i.price desc", nativeQuery = true)
-    List<Item> findByItemDetailByNative(@Param("itemDetail") String itemDetail);
 
 }

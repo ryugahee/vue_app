@@ -1,18 +1,16 @@
 <template>
   <Header />
-  <Home />
+  <RouterView/>
   <Footer/>
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
-import Home from "@/pages/Home.vue";
 
 export default {
   name: 'App',
   components: {
-    Home,
     Footer,
     Header
   }
@@ -28,7 +26,7 @@ export default {
   user-select: none;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 600px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }

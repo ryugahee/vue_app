@@ -19,7 +19,8 @@
     </div>
     <button class="btn btn-primary w-100 py-2">Sign in</button>
     <br>
-    <button class="btn btn-primary w-100 py-2">회원 가입</button>
+    <br>
+    <router-link to="/join"><button class="btn btn-primary w-100 py-2">회원 가입</button></router-link>
   </div>
 </template>
 
