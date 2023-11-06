@@ -22,8 +22,10 @@ public class Item {
     @Column(nullable = false, length = 50)
     private String itemNm;  //상품명
 
+    @Column
     private int price;  // 상품 가격
 
+    @Column
     private int stockNumber;  //재고 수량
 
     @Lob  //사진과 같은 큰 값을 넣기 위한 것
@@ -36,5 +38,6 @@ public class Item {
     private LocalDateTime regTime;  //등록 시간
 
     private LocalDateTime updateTime;  //수정 시간
+
 
 }

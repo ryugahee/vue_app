@@ -1,5 +1,7 @@
 package com.example.backend.entity;
 
+import com.example.backend.constant.Role;
+import com.example.backend.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,17 +19,36 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(length = 50)
     private String name;
 
-    @Column(unique = true)
+    @Column(length = 100, unique = true)
     private String email;
 
+    @Column(length = 100)
     private String password;
 
-    private String zipcode;
+    @Column(length = 100)
+    private String zipcode;  //우편 번호
 
-    private String streetadr;
+    @Column(length = 100)
+    private String streetadr;  //도로명 주소
 
-    private String detailadr;
+    @Column(length = 100)
+    private String detailadr;  //상세 주소
+
+
+    //Member 엔티티 생성
+    public static Member createMember(MemberFormDto memberFormDto) {
+        Member member = new Member();
+        member.setName(memberFormDto.getName());
+        member.setEmail(memberFormDto.getEmail());
+        member.setPassword(memberFormDto.getPassword());
+        member.setEmail(memberFormDto.getZipcode());
+        member.setStreetadr(memberFormDto.getStreetadr());
+        member.setDetailadr(memberFormDto.getDetailadr());
+
+        return member;
+    }
 
 }

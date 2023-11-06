@@ -11,24 +11,27 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import static com.example.backend.entity.QMember.member;
 
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@ResponseBody
 public class MemberController {
 
     private final MemberService memberService;
     /*
      * 회원가입
      * */
-    @GetMapping(value = "/api/new")
-    public String memberForm(Model model) {
-        model.addAttribute("memberFormDto", new MemberFormDto());
 
-        return "/api/login";
+    @PostMapping("/api/new")
+    public String newMember(@Valid MemberFormDto memberFormDto) {
+        Member member = Member.createMember(memberFormDto);
+        memberService.saveMember(member);
+
+        return "redirect:/";
     }
 
 }

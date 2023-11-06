@@ -4,7 +4,7 @@
       <div class="container">
         <div>
           <div class="col" v-for="(item, idx) in state.items" :key="idx">
-            <Board :item="item"/>
+            <Product :item="item"/>
           </div>
         </div>
       </div>
@@ -16,11 +16,11 @@
 
 import axios from "axios";
 import {reactive} from "vue";
-import Board from "@/components/Board.vue";
+import Product from "@/components/Product.vue";
 
 export default {
   name: 'Home',
-  components: {Board},
+  components: {Product},
   setup() {
     const state = reactive({
       items: []

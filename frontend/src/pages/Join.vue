@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @submit.prevent="join">
     <div class="col-md-7 col-lg-8">
       <form  @submit.prevent="join" class="row g-3">
         <br>
@@ -30,14 +30,11 @@
         <button @click="search()">우편번호 찾기</button>
         <br>
         <br>
-        <p>{{zipcode}}</p>
         <input v-model="streetadr" type="text" id="roadAddress" placeholder="도로명주소" style="width: 300px" readonly>
         <br>
         <br>
-        <p>{{streetadr}}</p>
         <span id="guide" style="color:#000;display:none" ></span>
         <input v-model="detailadr" type="text" id="detailAddress"  placeholder="상세주소" style="width: 300px">
-        <p>{{detailadr}}</p>
       </div>
       <hr class="my-4">
       <div class="d-flex justify-content-center">

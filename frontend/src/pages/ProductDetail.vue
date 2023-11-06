@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "BoardDetail",
+  name: "ProductDetail",
 }
 </script>
 

@@ -3,7 +3,7 @@
     <div class="card-body">
       <p class="card-text">{{ item }} </p>
       <div class="d-flex justify-content-between align-items-center">
-        <router-link to="/board/detail"><button class="btn btn-primary">상세보기</button></router-link>
+        <router-link to="/product/detail"><button class="btn btn-primary">상세보기</button></router-link>
       </div>
     </div>
   </div>
@@ -12,7 +12,7 @@
 <script>
 
 export default {
-  name: "Board",
+  name: "Product",
   props: {
     item: String
   }
