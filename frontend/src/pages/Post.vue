@@ -29,19 +29,19 @@
             <div class="col-12">
               <label for="username" class="form-label">사진 등록</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="username" placeholder="상품 이미지" required>
+                <input type="text" class="form-control" id="username" placeholder="상품 이미지" required readonly>
                 <button class="input-group-text">업로드</button>
               </div>
             </div>
             <div class="col-12">
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="username" placeholder="상품 이미지">
+                <input type="text" class="form-control" id="username" placeholder="상품 이미지" readonly>
                 <button class="input-group-text">업로드</button>
               </div>
             </div>
             <div class="col-12">
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="username" placeholder="상품 이미지">
+                <input type="text" class="form-control" id="username" placeholder="상품 이미지" readonly>
                 <button class="input-group-text">업로드</button>
               </div>
             </div>

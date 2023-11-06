@@ -7,18 +7,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import static com.example.backend.entity.QMember.member;
+import org.springframework.web.bind.annotation.*;
 
 
-@Controller
+@RestController
 @RequiredArgsConstructor
-@ResponseBody
 public class MemberController {
 
     private final MemberService memberService;
@@ -26,8 +19,16 @@ public class MemberController {
      * 회원가입
      * */
 
+
+/*    @GetMapping(value = "/api/new")
+    public String memberForm(Model model) {
+        model.addAttribute("memberFormDto", new MemberFormDto());
+
+        return "api/new";
+    }*/
+
     @PostMapping("/api/new")
-    public String newMember(@Valid MemberFormDto memberFormDto) {
+    public String newMember(@RequestBody @Valid MemberFormDto memberFormDto) {
         Member member = Member.createMember(memberFormDto);
         memberService.saveMember(member);
 

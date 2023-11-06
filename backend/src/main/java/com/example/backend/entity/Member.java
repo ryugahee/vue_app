@@ -1,6 +1,5 @@
 package com.example.backend.entity;
 
-import com.example.backend.constant.Role;
 import com.example.backend.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;

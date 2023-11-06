@@ -28,7 +28,7 @@ public class Item {
     @Column
     private int stockNumber;  //재고 수량
 
-    @Lob  //사진과 같은 큰 값을 넣기 위한 것
+    @Lob  //큰 값을 넣기 위한 것
     @Column(nullable = false)
     private String itemDetail;  //상품 상세 설명
 

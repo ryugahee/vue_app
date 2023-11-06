@@ -26,8 +26,8 @@
       <hr class="my-4">
       <span>주소 </span>
       <div class="address">
-        <input v-model="zipcode" placeholder="우편번호" readonly>
         <button @click="search()">우편번호 찾기</button>
+        <input v-model="zipcode" type="number" placeholder="우편번호" readonly>
         <br>
         <br>
         <input v-model="streetadr" type="text" id="roadAddress" placeholder="도로명주소" style="width: 300px" readonly>
