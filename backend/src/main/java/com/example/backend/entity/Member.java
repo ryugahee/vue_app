@@ -43,7 +43,7 @@ public class Member {
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
         member.setPassword(memberFormDto.getPassword());
-        member.setEmail(memberFormDto.getZipcode());
+        member.setZipcode(memberFormDto.getZipcode());
         member.setStreetadr(memberFormDto.getStreetadr());
         member.setDetailadr(memberFormDto.getDetailadr());
 

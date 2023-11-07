@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Table(name="item")  //어떤 테이블과 매핑될지 지정
 @Entity
 public class Item {
+
     @Column(name="item_id")  //item 테이블의 컬럼명 item_id와 id를 매핑
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id

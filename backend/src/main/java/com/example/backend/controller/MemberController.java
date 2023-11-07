@@ -29,6 +29,7 @@ public class MemberController {
 
     @PostMapping("/api/new")
     public String newMember(@RequestBody @Valid MemberFormDto memberFormDto) {
+        System.out.println("memberFormDto = " + memberFormDto);
         Member member = Member.createMember(memberFormDto);
         memberService.saveMember(member);
 
