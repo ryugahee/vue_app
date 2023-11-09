@@ -40,11 +40,11 @@ public class ItemController {
 
     @PostMapping("/api/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
-                          Model model, @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
-        // 상품 등록시 필수 값이 없다면 다시 상품 등록 페이지로 전환
+                          Model model, @RequestParam("files") List<MultipartFile> itemImgFileList) {
+/*        // 상품 등록시 필수 값이 없다면 다시 상품 등록 페이지로 전환
         if (bindingResult.hasErrors()) {
             return "item/itemForm";
-        }
+        }*/
         // 상품 등록시 첫번째 이미지가 없다면 다시 상품 등록 페이지로 전환
         if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");

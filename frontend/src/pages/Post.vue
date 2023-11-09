@@ -9,7 +9,7 @@
               <label for="username" class="form-label">상품명</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">상품명</span>
-                <input type="text" v-model="title"  class="form-control" required>
+                <input type="text" v-model="itemNm" class="form-control" required>
               </div>
             </div>
             <div class="col-7">
@@ -23,60 +23,31 @@
               <label for="username" class="form-label">재고</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">재고</span>
-                <input v-model="stockNumber"  type="text" class="form-control">
+                <input v-model="stockNumber" type="text" class="form-control">
               </div>
             </div>
             <div class="col-7">
               <label for="username" class="form-label">상세 설명</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">상세 설명</span>
-                <input type="text" v-model="content" class="form-control" required>
-              </div>
-            </div>
-<!--            <div class="file-upload">
-              <div class="col-7">
-                <label for="username" class="form-label">사진 등록</label>
-                <div class="input-group has-validation">
-                  <input type="file" id="file" ref="files" @change="imageUpload" multiple class="form-control" required readonly>
-                  <button class="input-group-text">업로드</button>
-                </div>
-              </div>
-              <div class="col-7">
-                <div class="input-group has-validation">
-                  <input type="file" class="form-control" readonly>
-                  <button class="input-group-text">업로드</button>
-                </div>
-              </div>
-              <div class="col-7">
-                <div class="input-group has-validation">
-                  <input type="file" class="form-control" readonly>
-                  <button class="input-group-text" @click="upload">업로드</button>
-                </div>
-              </div>
-            </div>-->
-            <!--     사진 등록       -->
-            <div v-if="!files.length" class="file-upload">
-              <div>
-                <label for="file">사진 등록
-                  <input type="file" id="file" ref="files" @change="imageUpload" multiple />
-                </label>
+                <input type="text" v-model="itemDetail" class="form-control" required>
               </div>
             </div>
             <!--     업로드 후 미리보기       -->
             <div class="file-preview-content-container">
-              <div v-for="(file, index) in images" :key="index" class="file-preview-wrapper">
+              <div v-for="(file, index) in files" :key="index" class="file-preview-wrapper">
                 <!--     사진 닫기       -->
                 <div class="file-close-button" @click="imageDeleteButton" :name="file.number">
                   x
                 </div>
                 <!--     사진 미리보기       -->
-                <img :src="file.preview" />
+                <img :src="file.preview"/>
               </div>
             </div>
             <!--     추가 사진 등록       -->
             <div class="file-preview-wrapper-upload">
               <label for="file">추가 사진 등록</label>
-              <input  type="file" id="file" ref="files" @change ='imageAddUpload'/>
+              <input type="file" id="file" ref="files" multiple @change='imageAddUpload'/>
             </div>
 
           </div>
@@ -99,10 +70,10 @@ export default {
   name: "Post",
   data() {
     return {
-      title: '',
+      itemNm: '',
       price: '',
       stockNumber: '',
-      content: '',
+      itemDetail: '',
 
       files: [], //업로드용 파일
       filesPreview: [],
@@ -115,31 +86,30 @@ export default {
 
       for (let i = 0; i < this.files.length; i++) {
 
-        formData.append('title', encodeURIComponent(this.title));
-        formData.append('content', encodeURIComponent(this.content));
+        formData.append('itemNm', encodeURIComponent(this.itemNm));
+        formData.append('itemDetail', encodeURIComponent(this.itemDetail));
         formData.append('price', encodeURIComponent(this.price));
         formData.append('stockNumber', encodeURIComponent(this.stockNumber));
 
-        formData.append('files', this.files[i]);
+        formData.append('files', this.files[i].file);
 
         axios.post("/api/item/new", formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data; charset=UTF-8',
-              }
-            })
-            .then((res) => {
-          console.log(res)
-          if (res.status === 200) {
-            console.log(res)
-            alert("상품 등록 성공");
+          headers: {
+            'Content-Type': 'multipart/form-data; charset=UTF-8',
           }
-        }).catch(()=>{
+        }).then((res) => {
+              console.log(res)
+              if (res.status === 200) {
+                console.log(res)
+                window.alert("상품 등록 성공");
+              }
+            }).catch(() => {
               window.alert("상품 등록 실패");
             }
         )
       }
     },
-    imageUpload() {
+   /* imageUpload() {
       console.log(this.$refs.files.files);
       // this.files = [...this.files, this.$refs.files.files];
       //하나의 배열로 넣기
@@ -162,7 +132,32 @@ export default {
       this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
       console.log(this.files);
       // console.log(this.filesPreview);
-    }
+    },*/
+    imageAddUpload() {
+      console.log(this.$refs.files.files);
+
+      let num = -1;
+      for (let i = 0; i < this.$refs.files.files.length; i++) {
+        console.log(this.uploadImageIndex);
+        this.files = [
+          ...this.files,
+          //이미지 업로드
+          {
+            //실제 파일
+            file: this.$refs.files.files[i],
+            //이미지 프리뷰
+            preview: URL.createObjectURL(this.$refs.files.files[i]),
+            //삭제및 관리를 위한 number
+            number: i + this.uploadImageIndex
+          }
+        ];
+        num = i;
+      }
+      this.uploadImageIndex = this.uploadImageIndex + num + 1;
+
+      console.log(this.files);
+      // console.log(this.filesPreview);
+    },
   }
 }
 </script>
