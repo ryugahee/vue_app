@@ -10,10 +10,10 @@
               <div class="input-group has-validation">
                 <span class="input-group-text">상품명</span>
                 <input
-                  type="text"
-                  v-model="itemNm"
-                  class="form-control"
-                  required
+                    type="text"
+                    v-model="itemNm"
+                    class="form-control"
+                    required
                 />
               </div>
             </div>
@@ -21,14 +21,14 @@
               <label for="username" class="form-label">가격</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">가격</span>
-                <input type="text" v-model="price" class="form-control" />
+                <input type="text" v-model="price" class="form-control"/>
               </div>
             </div>
             <div class="col-7">
               <label for="username" class="form-label">재고</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">재고</span>
-                <input v-model="stockNumber" type="text" class="form-control" />
+                <input v-model="stockNumber" type="text" class="form-control"/>
               </div>
             </div>
             <div class="col-7">
@@ -36,66 +36,73 @@
               <div class="input-group has-validation">
                 <span class="input-group-text">상세 설명</span>
                 <input
-                  type="text"
-                  v-model="itemDetail"
-                  class="form-control"
-                  required
+                    type="text"
+                    v-model="itemDetail"
+                    class="form-control"
+                    required
                 />
               </div>
             </div>
-            <!--     업로드 후 미리보기       -->
-            <div class="file-preview-content-container">
-              <div
-                v-for="(file, index) in files"
-                :key="index"
-                class="file-preview-wrapper"
-              >
-                <!--     사진 닫기       -->
-                <div
-                  class="file-close-button"
-                  @click="imageDeleteButton"
-                  :name="file.number"
-                >
-                  x
-                </div>
-                <!--     사진 미리보기       -->
-                <img :src="file.preview" />
-              </div>
-            </div>
-            -->
-            <!--     사진 등록       -->
-            <div v-if="!files.length" class="file-upload">
-              <div>
-                <label for="file"
+
+            <div>
+              <!--     사진 등록       -->
+              <div v-if="!files.length" class="file-upload">
+                <div>
+                  <label for="file"
                   >사진 등록
-                  <input
-                    type="file"
-                    id="file"
-                    ref="files"
-                    @change="imageUpload"
-                    multiple
-                  />
-                </label>
+                    <input
+                        type="file"
+                        id="file"
+                        ref="files"
+                        multiple @change="imageUpload"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div v-else>
+                <!--     업로드 후 미리보기       -->
+                <div class="file-preview-content-container">
+                  <div
+                      v-for="(file, index) in files"
+                      :key="index"
+                      class="file-preview-wrapper">
+                    <!--     사진 닫기       -->
+                    <div
+                        class="file-close-button"
+                        @click="imageDeleteButton"
+                        :name="file.number"
+                    >
+                      x
+                    </div>
+                    <!--     사진 미리보기       -->
+                    <img :src="file.preview"/>
+                  </div>
+                </div>
+
+                <div>
+                  <!--     추가 사진 등록       -->
+                  <div class="file-preview-wrapper-upload">
+                    <label for="file">추가 사진 등록</label>
+                    <input
+                        type="file"
+                        id="file"
+                        ref="files"
+                        multiple
+                        @change="imageAddUpload"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-            <!--     추가 사진 등록       -->
-            <div class="file-preview-wrapper-upload">
-              <label for="file">추가 사진 등록</label>
-              <input
-                type="file"
-                id="file"
-                ref="files"
-                multiple
-                @change="imageAddUpload"
-              />
-            </div>
+
+
           </div>
-          <hr class="my-4" />
+          <hr class="my-4"/>
           <div class="d-flex justify-content-center">
             <button
-              class="w-50 btn btn-primary btn-lg"
-              type="submit"
-              @click="submitPost"
+                class="w-50 btn btn-primary btn-lg"
+                type="submit"
+                @click="submitPost"
             >
               저장
             </button>
@@ -124,7 +131,7 @@ export default {
     };
   },
   methods: {
-    submitPost() {
+    async submitPost() {
       let formData = new FormData();
 
       for (let i = 0; i < this.files.length; i++) {
@@ -135,25 +142,25 @@ export default {
 
         formData.append("files", this.files[i].file);
 
-        axios
-          .post("/api/item/new", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data; charset=UTF-8",
-            },
-          })
-          .then((res) => {
-            console.log(res);
-            if (res.status === 200) {
+        await axios
+            .post("/api/item/new", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((res) => {
               console.log(res);
-              window.alert("상품 등록 성공");
-            }
-          })
-          .catch(() => {
-            window.alert("상품 등록 실패");
-          });
+              if (res.status === 200) {
+                console.log(res);
+                window.alert("상품 등록 성공");
+              }
+            })
+            .catch(() => {
+              window.alert("상품 등록 실패");
+            });
       }
     },
-    /* imageUpload() {
+    imageUpload() {
       console.log(this.$refs.files.files);
       // this.files = [...this.files, this.$refs.files.files];
       //하나의 배열로 넣기
@@ -173,59 +180,36 @@ export default {
         ];
         num = i;
       }
-      this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
-      console.log(this.files);
-      // console.log(this.filesPreview);
-    },*/
-    imageAddUpload() {
-      console.log(this.$refs.files.files);
-
-      let num = -1;
-      for (let i = 0; i < this.$refs.files.files.length; i++) {
-        console.log(this.uploadImageIndex);
-        this.files = [
-          ...this.files,
-          //이미지 업로드
-          {
-            //실제 파일
-            file: this.$refs.files.files[i],
-            //이미지 프리뷰
-            preview: URL.createObjectURL(this.$refs.files.files[i]),
-            //삭제및 관리를 위한 number
-            number: i + this.uploadImageIndex,
-          },
-        ];
-        num = i;
-      }
-      this.uploadImageIndex = this.uploadImageIndex + num + 1;
-
+      // this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
+      this.uploadImageIndex = num + 1;
       console.log(this.files);
       // console.log(this.filesPreview);
     },
-    imageUpload() {
-      console.log(this.$refs.files.files);
-      // this.files = [...this.files, this.$refs.files.files];
-      //하나의 배열로 넣기
-      let num = -1;
-      for (let i = 0; i < this.$refs.files.files.length; i++) {
-        this.files = [
-          ...this.files,
-          //이미지 업로드
-          {
-            //실제 파일
-            file: this.$refs.files.files[i],
-            //이미지 프리뷰
-            preview: URL.createObjectURL(this.$refs.files.files[i]),
-            //삭제및 관리를 위한 number
-            number: i,
-          },
-        ];
-        num = i;
-      }
-      this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
-      console.log(this.files);
-      // console.log(this.filesPreview);
-    },
+        imageAddUpload() {
+          console.log(this.$refs.files.files);
+
+          let num = -1;
+          for (let i = 0; i < this.$refs.files.files.length; i++) {
+            console.log(this.uploadImageIndex);
+            this.files = [
+              ...this.files,
+              //이미지 업로드
+              {
+                //실제 파일
+                file: this.$refs.files.files[i],
+                //이미지 프리뷰
+                preview: URL.createObjectURL(this.$refs.files.files[i]),
+                //삭제및 관리를 위한 number
+                number: i + this.uploadImageIndex,
+              },
+            ];
+            num = i;
+          }
+          this.uploadImageIndex = this.uploadImageIndex + num + 1;
+
+          console.log(this.files);
+          // console.log(this.filesPreview);
+        },
   },
 };
 </script>
