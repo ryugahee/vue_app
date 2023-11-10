@@ -39,12 +39,15 @@ public class ItemController {
     }
 
     @PostMapping("/api/item/new")
-    public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
+    public String itemNew(@Valid ItemFormDto itemFormDto,
                           Model model, @RequestParam("files") List<MultipartFile> itemImgFileList) {
-/*        // 상품 등록시 필수 값이 없다면 다시 상품 등록 페이지로 전환
-        if (bindingResult.hasErrors()) {
-            return "item/itemForm";
-        }*/
+
+        System.out.println("그림 확인: " + itemImgFileList);
+
+        for (int i = 0; i < itemImgFileList.size(); i++) {
+            System.out.println(itemImgFileList.get(i).getOriginalFilename());
+        }
+
         // 상품 등록시 첫번째 이미지가 없다면 다시 상품 등록 페이지로 전환
         if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
@@ -60,6 +63,6 @@ public class ItemController {
             return "";
         }
         // 정상 등록시 메인 페이지로 이동
-        return "redirect:/";
+        return "";
     }
 }

@@ -3,7 +3,7 @@
     <div class="row g-5">
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">상품 등록</h4>
-        <form class="needs-validation" novalidate>
+<!--        <form class="needs-validation" novalidate>-->
           <div class="row g-3">
             <div class="col-7">
               <label for="username" class="form-label">상품명</label>
@@ -46,7 +46,8 @@
 
             <div>
               <!--     사진 등록       -->
-              <div v-if="!files.length" class="file-upload">
+<!--              <div v-if="!files.length" class="file-upload">
+&lt;!&ndash;              <div class="file-upload">&ndash;&gt;
                 <div>
                   <label for="file"
                   >사진 등록
@@ -58,8 +59,9 @@
                     />
                   </label>
                 </div>
-              </div>
-              <div v-else>
+              </div>-->
+              <div>
+<!--              <div>-->
                 <!--     업로드 후 미리보기       -->
                 <div class="file-preview-content-container">
                   <div
@@ -78,7 +80,6 @@
                     <img :src="file.preview"/>
                   </div>
                 </div>
-
                 <div>
                   <!--     추가 사진 등록       -->
                   <div class="file-preview-wrapper-upload">
@@ -94,8 +95,6 @@
                 </div>
               </div>
             </div>
-
-
           </div>
           <hr class="my-4"/>
           <div class="d-flex justify-content-center">
@@ -107,7 +106,7 @@
               저장
             </button>
           </div>
-        </form>
+<!--        </form>-->
       </div>
     </div>
   </div>
@@ -125,27 +124,62 @@ export default {
       stockNumber: "",
       itemDetail: "",
 
-      files: [], //업로드용 파일
+      files: [],
       filesPreview: [],
-      uploadImageIndex: 0, // 이미지 업로드를 위한 변수
+      uploadImageIndex: 0,
     };
   },
   methods: {
-    async submitPost() {
-      let formData = new FormData();
 
+/*    imageUpload() {
+      console.log(this.$refs.files.files);
+      let num = -1;
+      for (let i = 0; i < this.$refs.files.files.length; i++) {
+        this.files = [
+          ...this.files,
+          {
+            file: this.$refs.files.files[i],
+            preview: URL.createObjectURL(this.$refs.files.files[i]),
+            number: i
+          }
+        ];
+        num = i;
+      }
+      this.uploadImageIndex = num + 1;
+      console.log(this.files);
+    },*/
+    imageAddUpload() {
+      let num = -1;
+      for (let i = 0; i < this.$refs.files.files.length; i++) {
+        console.log(this.uploadImageIndex);
+        this.files.push({
+          file: this.$refs.files.files[i],
+          preview: URL.createObjectURL(this.$refs.files.files[i]),
+          number: i + this.uploadImageIndex,
+        });
+
+      this.uploadImageIndex = num + 1;
+      }
+      console.log(this.files);
+    },
+    async submitPost() {
+
+        const formData = new FormData();
       for (let i = 0; i < this.files.length; i++) {
         formData.append("itemNm", encodeURIComponent(this.itemNm));
         formData.append("itemDetail", encodeURIComponent(this.itemDetail));
-        formData.append("price", encodeURIComponent(this.price));
-        formData.append("stockNumber", encodeURIComponent(this.stockNumber));
+        formData.append("price", this.price);
+        formData.append("stockNumber", this.stockNumber);
 
         formData.append("files", this.files[i].file);
 
+        console.log("백으로 넘어가는 폼데이터: ", this.files[i].file);
+
+      }
         await axios
             .post("/api/item/new", formData, {
               headers: {
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "multipart/form-data;  charset=UTF-8",
               },
             })
             .then((res) => {
@@ -158,58 +192,8 @@ export default {
             .catch(() => {
               window.alert("상품 등록 실패");
             });
-      }
-    },
-    imageUpload() {
-      console.log(this.$refs.files.files);
-      // this.files = [...this.files, this.$refs.files.files];
-      //하나의 배열로 넣기
-      let num = -1;
-      for (let i = 0; i < this.$refs.files.files.length; i++) {
-        this.files = [
-          ...this.files,
-          //이미지 업로드
-          {
-            //실제 파일
-            file: this.$refs.files.files[i],
-            //이미지 프리뷰
-            preview: URL.createObjectURL(this.$refs.files.files[i]),
-            //삭제및 관리를 위한 number
-            number: i
-          }
-        ];
-        num = i;
-      }
-      // this.uploadImageIndex = num + 1; //이미지 index의 마지막 값 + 1 저장
-      this.uploadImageIndex = num + 1;
-      console.log(this.files);
-      // console.log(this.filesPreview);
-    },
-        imageAddUpload() {
-          console.log(this.$refs.files.files);
 
-          let num = -1;
-          for (let i = 0; i < this.$refs.files.files.length; i++) {
-            console.log(this.uploadImageIndex);
-            this.files = [
-              ...this.files,
-              //이미지 업로드
-              {
-                //실제 파일
-                file: this.$refs.files.files[i],
-                //이미지 프리뷰
-                preview: URL.createObjectURL(this.$refs.files.files[i]),
-                //삭제및 관리를 위한 number
-                number: i + this.uploadImageIndex,
-              },
-            ];
-            num = i;
-          }
-          this.uploadImageIndex = this.uploadImageIndex + num + 1;
-
-          console.log(this.files);
-          // console.log(this.filesPreview);
-        },
+    },
   },
 };
 </script>
