@@ -23,10 +23,10 @@ public class Item {
     @Column(nullable = false, length = 50)
     private String itemNm;  //상품명
 
-    @Column
+    @Column(name="price", nullable = false)
     private int price;  // 상품 가격
 
-    @Column
+    @Column(nullable = false)
     private int stockNumber;  //재고 수량
 
     @Lob  //큰 값을 넣기 위한 것
