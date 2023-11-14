@@ -1,4 +1,4 @@
-<template>
+<template xmlns:src="http://www.w3.org/1999/html">
   <div class="container">
     <div class="row g-5">
       <div class="col-md-7 col-lg-8">
@@ -83,13 +83,14 @@
                 <div>
                   <!--     추가 사진 등록       -->
                   <div class="file-preview-wrapper-upload">
-                    <label for="file">추가 사진 등록</label>
+                    <label for="file" class="filelabel"><img src="../assets/img/camera%201.png" class="fileImg"></label>
                     <input
                         type="file"
                         id="file"
                         ref="files"
                         multiple
                         @change="imageAddUpload"
+                        style="display: none"
                     />
                   </div>
                 </div>
@@ -198,4 +199,17 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.filelabel {
+  border: solid #98CB98 2px;
+  border-radius: 10px;
+  width: 80px;
+  height: 80px;
+}
+.fileImg {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: auto;
+}
+</style>
