@@ -4,6 +4,7 @@ import Join from "@/pages/Join.vue";
 import Post from "@/pages/Post.vue";
 import {createRouter, createWebHistory} from "vue-router";
 import ProductDetail from "@/pages/ProductDetail.vue";
+import Info from "@/pages/Info.vue";
 
 const routes = [
     {path:'/', component: Home},
@@ -11,6 +12,7 @@ const routes = [
     {path:'/join', component: Join},
     {path:'/post', component: Post},
     {path:'/product/detail', component: ProductDetail},
+    {path:'/mypage/Info', component: Info},
 ]
 
 const router = createRouter({
