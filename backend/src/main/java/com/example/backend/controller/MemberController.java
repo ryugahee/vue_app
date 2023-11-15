@@ -5,9 +5,10 @@ import com.example.backend.entity.Member;
 import com.example.backend.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import static com.example.backend.entity.QMember.member;
 
 
 @RestController
@@ -20,13 +21,6 @@ public class MemberController {
      * */
 
 
-/*    @GetMapping(value = "/api/new")
-    public String memberForm(Model model) {
-        model.addAttribute("memberFormDto", new MemberFormDto());
-
-        return "api/new";
-    }*/
-
     @PostMapping("/api/new")
     public String newMember(@RequestBody @Valid MemberFormDto memberFormDto) {
         System.out.println("memberFormDto = " + memberFormDto);
@@ -34,6 +28,18 @@ public class MemberController {
         memberService.saveMember(member);
 
         return "redirect:/";
+    }
+
+    /*
+     * 회원정보 조회
+     * */
+
+    @GetMapping("/api/member/update")
+    public String memberUpdate(@RequestBody MemberFormDto memberFormDto, Model model) {
+        Member member = memberService.memberUpdate(memberFormDto);
+        model.addAttribute("updateMember", member);
+
+        return "update";
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.MemberFormDto;
 import com.example.backend.entity.Member;
+import com.example.backend.entity.QMember;
 import com.example.backend.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,4 +32,21 @@ public class MemberService {
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
     }
+
+
+
+
+    /*
+     * 회원정보 조회
+     * */
+
+/*    public Member memberUpdate(MemberFormDto memberFormDto) {
+    }*/
+
+/*
+    public void updateMember(Long id) {
+        return memberRepository.
+    }*/
+
+
 }
