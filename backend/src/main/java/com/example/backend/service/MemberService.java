@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional  // 에러 발생시 콜백시켜줌
 @RequiredArgsConstructor  // 생성자 생성
@@ -33,20 +35,16 @@ public class MemberService {
         }
     }
 
-
+    public Member memberUpdate(Long id) {
+        Member member = memberRepository.findById(id).get();
+        return member;
+    }
 
 
     /*
      * 회원정보 조회
      * */
 
-/*    public Member memberUpdate(MemberFormDto memberFormDto) {
-    }*/
-
-/*
-    public void updateMember(Long id) {
-        return memberRepository.
-    }*/
 
 
 }

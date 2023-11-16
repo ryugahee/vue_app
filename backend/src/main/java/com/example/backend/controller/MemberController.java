@@ -20,7 +20,6 @@ public class MemberController {
      * 회원가입
      * */
 
-
     @PostMapping("/api/new")
     public String newMember(@RequestBody @Valid MemberFormDto memberFormDto) {
         System.out.println("memberFormDto = " + memberFormDto);
@@ -35,8 +34,8 @@ public class MemberController {
      * */
 
     @GetMapping("/api/member/update")
-    public String memberUpdate(@RequestBody MemberFormDto memberFormDto, Model model) {
-        Member member = memberService.memberUpdate(memberFormDto);
+    public String memberUpdate(Long id, Model model) {
+        Member member = memberService.memberUpdate(id);
         model.addAttribute("updateMember", member);
 
         return "update";
