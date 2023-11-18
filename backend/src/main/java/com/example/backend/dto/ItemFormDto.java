@@ -20,13 +20,11 @@ public class ItemFormDto {
 
     private Long id;
 
-    private String itemNm;
+    private String itemName;
 
     private Integer price;
 
     private String itemDetail;
-
-    private Integer stockNumber;
 
     private ItemSellStatus itemSellStatus;
 

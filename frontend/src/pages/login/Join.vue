@@ -11,15 +11,27 @@
           </div>
         </div>
         <div class="col-8">
-          <label class="form-label">이메일</label>
+          <label class="form-label">닉네임</label>
           <div class="input-group has-validation">
-            <input v-model="email" type="text" class="form-control" required>
+            <input v-model="nickName" type="text" class="form-control" required>
           </div>
         </div>
         <div class="col-8">
           <label class="form-label">비밀번호</label>
           <div class="input-group has-validation">
             <input v-model="password" type="password" class="form-control" required>
+          </div>
+        </div>
+        <div class="col-8">
+          <label class="form-label">이메일</label>
+          <div class="input-group has-validation">
+            <input v-model="email" type="text" class="form-control" required>
+          </div>
+        </div>
+        <div class="col-8">
+          <label class="form-label">전화번호</label>
+          <div class="input-group has-validation">
+            <input v-model="phone" type="text" class="form-control" required>
           </div>
         </div>
       </form>
@@ -54,7 +66,9 @@ export default {
   data() {
     return {
       name: "",
+      nickName: "",
       email: "",
+      phone: "",
       password: "",
       zipcode: "",
       streetadr: "",
@@ -95,8 +109,10 @@ export default {
     join() {
       axios.post("/api/new", {
         name: this.name,
-        email: this.email,
+        nickName: this.nickName,
         password: this.password,
+        email: this.email,
+        phone: this.phone,
         zipcode: this.zipcode,
         streetadr: this.streetadr,
         detailadr: this.detailadr,

@@ -20,7 +20,7 @@ public class ItemImg {
 
     private String imgUrl;  //이미지 조회 경로
 
-    private String repImgYn;  //대표 이미지 여부
+    private String repImgYn;  //대표 이미지 여부  thumbnailYn
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_id")  //상품-이미지 다대일 단방향 매핑

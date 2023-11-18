@@ -33,12 +33,9 @@ public class MemberController {
      * 회원정보 조회
      * */
 
-    @GetMapping("/api/member/update")
-    public String memberUpdate(Long id, Model model) {
-        Member member = memberService.memberUpdate(id);
-        model.addAttribute("updateMember", member);
-
-        return "update";
+    @GetMapping("/api/member/update/{id}")
+    public Member memberUpdate(@PathVariable Long id) {
+        return memberService.findById(id);
     }
 
 }

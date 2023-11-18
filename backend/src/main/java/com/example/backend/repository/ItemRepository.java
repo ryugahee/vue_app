@@ -13,9 +13,9 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
     /*
     * 쿼리 메소드
     * */
-    List<Item> findByItemNm(String itemNm);  //find + By + 변수이름
+    List<Item> findByItemName(String itemName);  //find + By + 변수이름
 
-    List<Item> findByItemNmOrItemDetail(String itemNm, String itemDetail);  //상품명, 상품 상세 설명 조회
+    List<Item> findByItemNameOrItemDetail(String itemName, String itemDetail);  //상품명, 상품 상세 설명 조회
 
     List<Item> findByPriceLessThan(Integer price);  //파라미터로 넘어온 price 변수보다 값이 작은 상품 조회
 

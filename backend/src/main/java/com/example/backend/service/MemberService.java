@@ -2,12 +2,10 @@ package com.example.backend.service;
 
 import com.example.backend.dto.MemberFormDto;
 import com.example.backend.entity.Member;
-import com.example.backend.entity.QMember;
 import com.example.backend.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
 
 @Service
@@ -35,16 +33,12 @@ public class MemberService {
         }
     }
 
-    public Member memberUpdate(Long id) {
-        Member member = memberRepository.findById(id).get();
-        return member;
-    }
-
-
     /*
      * 회원정보 조회
      * */
 
-
+    public Member findById(Long id) {
+        return memberRepository.findById(id).get();
+    }
 
 }

@@ -23,17 +23,9 @@ public class QItem extends EntityPathBase<Item> {
 
     public final StringPath itemDetail = createString("itemDetail");
 
-    public final StringPath itemNm = createString("itemNm");
-
-    public final EnumPath<com.example.backend.constant.ItemSellStatus> itemSellStatus = createEnum("itemSellStatus", com.example.backend.constant.ItemSellStatus.class);
+    public final StringPath itemName = createString("itemName");
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
-
-    public final DateTimePath<java.time.LocalDateTime> regTime = createDateTime("regTime", java.time.LocalDateTime.class);
-
-    public final NumberPath<Integer> stockNumber = createNumber("stockNumber", Integer.class);
-
-    public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 
     public QItem(String variable) {
         super(Item.class, forVariable(variable));

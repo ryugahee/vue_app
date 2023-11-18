@@ -1,9 +1,12 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.ItemFormDto;
+import com.example.backend.entity.Item;
+import com.example.backend.repository.ItemRepository;
 import com.example.backend.service.ItemService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
 
+    @Autowired
     private final ItemService itemService;
+    @Autowired
+    private final ItemRepository itemRepository;
 
     /*
      * 상품 리스트
@@ -38,11 +44,18 @@ public class ItemController {
         return items;
     }
 
+    /*
+    * 상품 조회
+    * */
+
+
+
+
+
     @PostMapping("/api/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto,
                           Model model, @RequestParam("files") List<MultipartFile> itemImgFileList) {
 
-        System.out.println("그림 확인: " + itemImgFileList);
 
         for (int i = 0; i < itemImgFileList.size(); i++) {
             System.out.println(itemImgFileList.get(i).getOriginalFilename());
