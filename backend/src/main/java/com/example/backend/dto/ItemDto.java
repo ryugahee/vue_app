@@ -10,21 +10,21 @@ import java.time.LocalDateTime;
 public class ItemDto {
     private Long id;
 
-    private String itemName;
+    private String itemTitle;
 
-    private int price;
+    private int minPrice;
 
     private String itemDetail;
 
-    // 시간
-    // 품목명
-    // 대분류
-    // 무게
+    private int time;
 
+    private String itemTag;
 
+    private String itemType;
 
+    private int weight;
 
-    private String sellStatCd;
+    private boolean isSoldout;
 
     private LocalDateTime regTime;
 

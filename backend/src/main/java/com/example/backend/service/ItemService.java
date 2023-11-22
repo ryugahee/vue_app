@@ -3,7 +3,6 @@ package com.example.backend.service;
 
 import com.example.backend.entity.Item;
 import com.example.backend.entity.ItemImg;
-import com.example.backend.service.ItemImgService;
 import com.example.backend.dto.ItemFormDto;
 import com.example.backend.repository.ItemImgRepository;
 import com.example.backend.repository.ItemRepository;
@@ -20,7 +19,6 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final ItemImgRepository itemImgRepository;
     private final ItemImgService itemImgService;
 
     /*
@@ -38,11 +36,11 @@ public class ItemService {
         for (int i = 0; i < itemImgFileList.size(); i++) {
             ItemImg itemImg = new ItemImg();
             itemImg.setItem(item);
-            if(i==0)  //첫번째 이미지일 경우 이미지 여부 값을 Y로 함
+            if(i==0)  //첫번째 이미지일 경우 값을 Y로 함
                 itemImg.setRepImgYn("Y");
             else
                 itemImg.setRepImgYn("N");
-            itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));   //이미지 정보 저장
+            itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
         }
         return item.getId();
     }

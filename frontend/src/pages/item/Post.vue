@@ -1,11 +1,15 @@
 <template>
   <div class="wrapper">
     <div class="header">
-      <button>뒤로</button>
-      <span>경매 등록</span>
+      <div>
+        <button class="btn-left"><img src="../../assets/img/left%202.png"></button>
+      </div>
+      <div class="register">
+        <p>경매 등록</p>
+      </div>
     </div>
     <div class="img-upload">
-      <!--     업로드 후 미리보기       -->
+      <!--     미리보기       -->
       <div class="img-preview">
         <div
             v-for="(file, index) in files"
@@ -19,7 +23,7 @@
         </div>
         <!--     사진 추가       -->
         <div v-if="!files.length">
-          <label for="file" class="filelabel"><img src="../../assets/img/camera%201.png" class="icon"></label>
+          <label for="file" class="filelabel"><img src="../../assets/img/camera%201.png" class="icon-camera"></label>
           <input
               type="file"
               id="file"
@@ -39,33 +43,37 @@
               style="display: none"/>
         </div>
       </div>
-
     </div>
-    <div class="content">
+    <div class="main">
       <div>
-        <input type="text" v-model="itemName" placeholder="제목">
+        <input class="title-box" type="text" v-model="itemTitle" placeholder=" 제목">
       </div>
       <div>
-        <input type="number" v-model="price" placeholder="최소 입찰 가격"><span>원 ~ </span>
-        <input type="number" placeholder="최대 입찰 가격"><span>원</span>
+        <input class="price-box" type="text" v-model="minPrice" placeholder=" 최소 입찰 가격"> 원
       </div>
       <div>
-        <select>
+        <select class="time-box">
           <option>시간</option>
           <option>30분</option>
           <option>1시간</option>
           <option>2시간</option>
+          <option>3시간</option>
+          <option>6시간</option>
+          <option>12시간</option>
+          <option>24시간</option>
         </select>
       </div>
-      <div>
-      <textarea type="text"
-                v-model="itemDetail" placeholder="상품 설명"></textarea>
+      <div class="content">
+      <textarea class="itemDetail-box"
+          type="text"
+                v-model="itemDetail" placeholder=" 상품 설명"></textarea>
       </div>
       <div>
-        <input placeholder="#품목명">
+        <input type="text"
+               v-model="itemTag" @input="handleInput" class="tag-box" placeholder=" #품목명">
       </div>
       <div>
-        <select>
+        <select v-model="itemType" class="type-box">
           <option>대분류</option>
           <option>딸기</option>
           <option>수박</option>
@@ -73,16 +81,11 @@
         </select>
       </div>
       <div>
-        <select>
-          <option>무게(kg)</option>
-          <option>1kg</option>
-          <option>2kg</option>
-          <option>3kg</option>
-        </select>
+        <input v-model="weight" class="weight-box" type="text" placeholder=" 무게"> kg
       </div>
     </div>
-    <div>
-      <button type="submit" @click="submitPost">
+    <div class="btn-container">
+      <button class="btn-start" type="submit" @click="submitPost">
         경매 시작!
       </button>
     </div>
@@ -96,17 +99,32 @@ export default {
   name: "Post",
   data() {
     return {
-      itemName: "",
-      price: "",
-      stockNumber: "",
+      itemTitle: "",
+      minPrice: "",
       itemDetail: "",
+      itemTag: "",
+      itemType: "",
+      weight: "",
 
       files: [],
       filesPreview: [],
       uploadImageIndex: 0,
     };
   },
+  watch: {
+    'itemTag': function() {
+
+}
+  },
+
   methods: {
+    handleInput() {
+      if (typeof this.itemTag === 'string') {
+        this.itemTag = this.itemTag.trim().split(/\s+/);
+      }
+    },
+
+
     imageAddUpload() {
 
       let num = -1;
@@ -138,10 +156,14 @@ export default {
 
       const formData = new FormData();
 
-      formData.append("itemName", this.itemName);
+      formData.append("itemTitle", this.itemTitle);
+      formData.append("minPrice", this.minPrice);
       formData.append("itemDetail", this.itemDetail);
-      formData.append("price", this.price);
-      formData.append("stockNumber", this.stockNumber);
+      formData.append("itemTag", this.itemTag);
+      formData.append("itemType", this.itemType);
+      formData.append("weight", this.weight);
+
+      console.log("이거 확인해보자: " + this.itemTag);
 
       for (let i = 0; i < this.files.length; i++) {
         formData.append("files", this.files[i].file);
@@ -170,8 +192,34 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  width: 390px;
+  height: 844px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+}
+.header {
+  width: 90%;
+  height: 100px;
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 70px;
+}
+.register {
+  margin-left: 10px;
+  font-weight: bold;
+}
+.btn-left {
+  border: none;
+  background-color: white;
+}
+/* 상품 이미지 */
+
 .filelabel {
-  border: solid #98CB98 2px;
+  border: solid #98CB98 1px;
   border-radius: 10px;
   width: 80px;
   height: 80px;
@@ -181,19 +229,23 @@ export default {
   margin: 5px;
 }
 
-.icon {
+.icon-camera {
   width: 30px;
   height: 30px;
 }
 
 .img-upload {
+  width: 100%;
+  padding: 5% 5% 0% 5%;
   display: flex;
-  margin-top: 5px;
+  border-top: solid 1px #d9d9d9;
+  white-space:nowrap;
+  overflow: auto;
 }
 
 .img-preview {
   display: flex;
-  margin: 5px;
+  margin-right: 3px;
 
 }
 
@@ -206,6 +258,7 @@ export default {
 .img-file {
   margin: 5px;
 }
+
 .img-close-button {
   position: absolute;
   z-index: 2;
@@ -214,4 +267,51 @@ export default {
   color: white;
   margin-left: 5px;
 }
+
+/* main */
+
+.main {
+  width: 100%;
+  padding: 5%;
+}
+.title-box, .time-box, .tag-box, .type-box{
+  width: 100%;
+  height: 35px;
+  border: solid #98CB98 1px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.itemDetail-box {
+  width: 100%;
+  height: 200px;
+  border: solid #98CB98 1px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.price-box, .weight-box {
+  width: 90%;
+  height: 40px;
+  border: solid #98CB98 1px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* 경매 버튼 */
+
+.btn-container {
+  width: 100%;
+  height: 50px;
+  background-color: #98CB98;
+  display: flex;
+  justify-content: center;
+
+}
+.btn-start {
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  background-color: #98CB98;
+}
+
 </style>

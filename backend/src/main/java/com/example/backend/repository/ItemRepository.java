@@ -13,13 +13,13 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
     /*
     * 쿼리 메소드
     * */
-    List<Item> findByItemName(String itemName);  //find + By + 변수이름
+    List<Item> findByItemTitle(String itemTitle);  //find + By + 변수이름
 
-    List<Item> findByItemNameOrItemDetail(String itemName, String itemDetail);  //상품명, 상품 상세 설명 조회
+    List<Item> findByItemTitleOrItemDetail(String itemTitle, String itemDetail);  //상품명, 상품 상세 설명 조회
 
-    List<Item> findByPriceLessThan(Integer price);  //파라미터로 넘어온 price 변수보다 값이 작은 상품 조회
+    List<Item> findByMinPriceLessThan(Integer minPrice);  //파라미터로 넘어온 price 변수보다 값이 작은 상품 조회
 
-    List<Item> findByPriceLessThanOrderByPriceDesc(Integer price);  //가격 내림차순으로 조회
+    List<Item> findByMinPriceLessThanOrderByMinPriceDesc(Integer price);  //가격 내림차순으로 조회
 
 
 }

@@ -1,23 +1,24 @@
 <template>
-  <Header />
-  <RouterView/>
-  <Footer/>
+  <div class="wrapper">
+    <Header />
+    <RouterView/>
+  </div>
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 
 export default {
   name: 'App',
   components: {
-    Footer,
     Header
   }
 }
 </script>
 
 <style>
+
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -25,13 +26,6 @@ export default {
   -moz-user-select: none;
   user-select: none;
 }
-
-@media (max-width: 600px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-}
-
 .b-example-divider {
   width: 100%;
   height: 3rem;

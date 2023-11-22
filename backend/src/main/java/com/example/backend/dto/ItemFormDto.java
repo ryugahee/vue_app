@@ -1,6 +1,5 @@
 package com.example.backend.dto;
 
-import com.example.backend.dto.ItemImgDto;
 import com.example.backend.entity.Item;
 import com.example.backend.constant.ItemSellStatus;
 import lombok.Getter;
@@ -20,13 +19,21 @@ public class ItemFormDto {
 
     private Long id;
 
-    private String itemName;
+    private String itemTitle;
 
-    private Integer price;
+    private Integer minPrice;
 
     private String itemDetail;
 
-    private ItemSellStatus itemSellStatus;
+    private int time;
+
+    private String itemTag;
+
+    private String itemType;
+
+    private int weight;
+
+    private boolean isSoldout;
 
     // 상품 저장 후 수정할 때 상품 이미지 정보 저장 리스트
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();

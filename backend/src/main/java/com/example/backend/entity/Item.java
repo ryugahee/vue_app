@@ -1,6 +1,5 @@
 package com.example.backend.entity;
 
-import com.example.backend.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,25 +10,39 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@Table(name="item")  //어떤 테이블과 매핑될지 지정
+@Table(name="item")
 @Entity
 public class Item {
 
-    @Column(name="item_id")  //item 테이블의 컬럼명 item_id와 id를 매핑
+    @Column(name="item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Long id;  // 상품 코드
+    private Long id;
 
     @Column(nullable = false, length = 50)
-    private String itemName;  //상품명
+    private String itemTitle;
 
-    @Column(name="price", nullable = false)
-    private int price;  // 상품 가격
-
-
-    @Lob  //큰 값을 넣기 위한 것
     @Column(nullable = false)
-    private String itemDetail;  //상품 상세 설명
+    private int minPrice;
+
+    @Lob
+    @Column(nullable = false)
+    private String itemDetail;
+
+    @Column(nullable = false)
+    private int time;
+
+    @Column(nullable = false, length = 50)
+    private String itemTag;
+
+    @Column(nullable = false)
+    private String itemType;
+
+    @Column(nullable = false)
+    private int weight;
+
+    @Column
+    private boolean isSoldout;
 
 //    @Enumerated(EnumType.STRING)
 //    private ItemSellStatus itemSellStatus;  //상품 판매 상태

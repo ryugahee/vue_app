@@ -58,4 +58,19 @@ public class Member {
         return member;
     }
 
+    /*
+     * 회원정보 수정
+     * */
+
+    public void updateMember(MemberFormDto memberFormDto) {
+        this.nickName = memberFormDto.getNickName();
+        this.name = memberFormDto.getName();
+        this.email = memberFormDto.getEmail();
+        this.phone = memberFormDto.getPhone();
+        this.password = memberFormDto.getPassword();
+        this.zipcode = memberFormDto.getZipcode();
+        this.streetadr = memberFormDto.getStreetadr();
+        this.detailadr = memberFormDto.getDetailadr();
+    }
+
 }

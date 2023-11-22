@@ -5,11 +5,7 @@ import com.example.backend.entity.Member;
 import com.example.backend.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import static com.example.backend.entity.QMember.member;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -34,8 +30,20 @@ public class MemberController {
      * */
 
     @GetMapping("/api/member/update/{id}")
-    public Member memberUpdate(@PathVariable Long id) {
-        return memberService.findById(id);
+    public Member memberUpdateForm(@PathVariable Long id) {
+        return memberService.selectMember(id);
     }
+
+    /*
+     * 회원정보 수정
+     * */
+
+    @PostMapping("/api/member/update/{id}")
+    public Member memberUpdate(@PathVariable Long id, @RequestBody @Valid MemberFormDto memberFormDto) {
+        System.out.println("멤버정보 " + memberFormDto);
+        return memberService.updateMember(id, memberFormDto);
+    }
+
+
 
 }

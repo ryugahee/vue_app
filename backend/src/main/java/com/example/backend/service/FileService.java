@@ -1,7 +1,6 @@
 package com.example.backend.service;
 
 import lombok.extern.java.Log;
-import org.springframework.data.jpa.repository.query.JSqlParserUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -13,9 +12,8 @@ import java.util.UUID;
 public class FileService {
 
     public String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception{
-        UUID uuid = UUID.randomUUID();  // 개체 구별용. 파일명 중복 문제 해결
+        UUID uuid = UUID.randomUUID();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        System.out.println("확장자명 " + extension);
         String savedFileName = uuid.toString() + extension;  //UUID 값과 원래 파일명 조합해서 파일 이름 저장
         String fileUploadFullUrl = uploadPath + "/" + savedFileName;
         FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);  //파일 출력 스트림. 생성자로 파일이 저장될 위치와 파일 이름을 넘김

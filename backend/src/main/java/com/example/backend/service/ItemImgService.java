@@ -4,28 +4,44 @@ import com.example.backend.entity.ItemImg;
 import com.example.backend.repository.ItemImgRepository;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class ItemImgService {
 
-    // properties에 등록한 "itemImgLocation"프로퍼티 값 불러와서 변수에 넣어줌
-    @Value("${itemImgLocation}")
-    private String itemImgLocation;
-
     private final ItemImgRepository itemImgRepository;
 
     private final FileService fileService;
+
+    public String makeDir() {
+
+        String folderPath = "C:\\auction\\item";
+
+        File makeFolder = new File(folderPath);
+
+        if(!makeFolder.exists()) {
+
+            makeFolder.mkdirs();
+            System.out.println("폴더를 생성합니다.");
+
+        } else {
+            System.out.println("이미 해당 폴더가 존재합니다.");
+        }
+        return folderPath;
+    }
 
     public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception {
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
+
+        String itemImgLocation = makeDir();
 
         //파일 업로드
         if (!StringUtils.isEmpty(oriImgName)) {

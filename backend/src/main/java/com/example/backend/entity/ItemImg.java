@@ -26,7 +26,7 @@ public class ItemImg {
     @JoinColumn(name="item_id")  //상품-이미지 다대일 단방향 매핑
     private Item item;
 
-    // 이미지 정보 업데이트
+
     public void updateItemImg(String oriImgName, String imgName, String imgUrl) {
         this.oriImgName = oriImgName;
         this.imgName = imgName;

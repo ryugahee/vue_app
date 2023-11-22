@@ -13,5 +13,9 @@ export default {
 </script>
 
 <style scoped>
-
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

@@ -22,7 +22,10 @@ public class MemberService {
     public Member saveMember(Member member) {
         // 중복 회원 검증
         validateDuplicateMember(member);
-        return memberRepository.save(member);
+
+        Member saveMember = memberRepository.save(member);
+
+        return saveMember;
     }
 
     // 중복 회원의 경우 예외 발생시킴
@@ -37,8 +40,29 @@ public class MemberService {
      * 회원정보 조회
      * */
 
-    public Member findById(Long id) {
-        return memberRepository.findById(id).get();
+    public Member selectMember(Long id) {
+        Member selectMember = memberRepository.findById(id).get();
+
+        return selectMember;
     }
+
+    /*
+     * 회원정보 수정
+     * */
+
+    @Transactional
+    public Member updateMember(Long id, MemberFormDto memberFormDto) {
+
+        // 회원 수정
+        Member selectMember = memberRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 회원이 없습니다. id="+id));
+
+        selectMember.updateMember(memberFormDto);
+        Member saveMember = memberRepository.save(selectMember);
+        // 이미지 등록
+
+
+        return saveMember;
+    }
+
 
 }
